@@ -1,0 +1,42 @@
+#!/bin/bash
+
+
+print_usage()
+{
+    echo "usage: $0 PATH NAME"
+    echo "where"
+    echo " PATH is the path to where the APL project is to be created"
+    echo " NAME is the APL project name"
+    echo ""
+    echo "this will create a catalog named NAME under PATH that contains"
+    echo " Makefile - with a phony target 'test' that executes unit tests"
+    echo " setup/test_setup.dyapp - a set up file invoked by the 'test' target"
+    echo " src/NAME.dyapp - a SALT script with an empty namespace NAME"
+    echo " test/NAME_tests.dyalog - a SALT script with an empty namespace NAME_tests"
+    echo ""
+    echo "The intent is that you get a set up for TDD starting with NAME using APLUnit."
+    echo "Just start adding tests and type 'make' in the root folder to execute."
+    echo ""
+    PATH='~/'
+    NAME='tdd_kata_roman'
+    echo "example: $0 ${PATH} ${NAME}"
+    echo "will create"
+    echo " ${PATH}${NAME}/"
+    echo " ${PATH}${NAME}/Makefile"
+    echo " ${PATH}${NAME}/src/${NAME}.dyalog"
+    echo " ${PATH}${NAME}/setup/test_setup.dyalog"
+    echo " ${PATH}${NAME}/test/${NAME}_tests.dyalog"
+    echo ""
+    echo "dependencies:"
+    echo " Assumes that you have a copy of APLUnit somewhere on your system"
+    echo " with the environment variable APLUNIT_PATH set to the root folder"
+    echo " of your local copy."
+}
+
+if [[ $# != 2 ]]
+then
+    print_usage
+    exit 1
+fi
+
+
