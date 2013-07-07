@@ -55,6 +55,7 @@ create_directory_structure()
 create_files()
 {
     create_makefile $@
+    create_setup_file $@
 }
 
 create_makefile()
@@ -63,6 +64,14 @@ create_makefile()
     echo '.PHONY: test' > ${MAKEFILE}
     echo 'test:' >> ${MAKEFILE}
     echo -e "\t${APL_ROOT}/mapl ${1}/${2}/setup/test_setup.dyapp" >> ${MAKEFILE}
+}
+
+create_setup_file()
+{
+    SETUPFILE=${1}/${2}/setup/test_setup.dyapp
+    echo "Load ${APLUNIT_PATH}/UT.dyalog" > ${SETUPFILE}
+    echo "Load ${1}/${2}/src/${2}.dyalog" >> ${SETUPFILE}
+    echo "Run UT.run '${1}/${2}/test/${2}_tests.dyalog'" >> ${SETUPFILE}
 }
 
 print_usage()
