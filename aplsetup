@@ -5,6 +5,7 @@ main()
     check_amount_of_arguments $@
     ensure_aplunit_path_variable_set
     ensure_path_exists_and_is_writeable ${1}
+    create_directory_structure ${1} ${2}
 }
 
 check_amount_of_arguments()
@@ -32,6 +33,12 @@ ensure_path_exists_and_is_writeable()
 	echo "error: PATH not writeable"
 	exit 3
     fi
+}
+
+create_directory_structure()
+{
+    mkdir ${1}/${2} &> /dev/null
+    mkdir ${1}/${2}/{src,setup,test} &> /dev/null
 }
 
 print_usage()
