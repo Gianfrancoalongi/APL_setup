@@ -90,10 +90,12 @@ print_usage()
     echo " ${PATH}${NAME}/test/${NAME}_tests.dyalog"
     echo ""
     echo "environment variables:"
-    echo " APLUNIT_PATH - assumes that you have a copy of APLUnit somewhere on your system"
-    echo " with the environment variable APLUNIT_PATH set to the root folder of APLUnit."
+    echo " APLUNIT_PATH"
+    echo "    assumes that you have a copy of APLUnit somewhere on your system"
+    echo "    with the environment variable APLUNIT_PATH set to the root folder of APLUnit."
     echo ""
-    echo " APL_ROOT - assumes that APL_ROOT points at the root APL directory of mapl"
+    echo " APL_ROOT "
+    echo "    assumes that APL_ROOT points at the root APL directory of mapl"
 }
 
 main $@
