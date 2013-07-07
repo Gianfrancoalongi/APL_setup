@@ -56,6 +56,7 @@ create_files()
 {
     create_makefile $@
     create_setup_file $@
+    create_src_and_test_files $@
 }
 
 create_makefile()
@@ -72,6 +73,19 @@ create_setup_file()
     echo "Load ${APLUNIT_PATH}/UT.dyalog" > ${SETUPFILE}
     echo "Load ${1}/${2}/src/${2}.dyalog" >> ${SETUPFILE}
     echo "Run UT.run '${1}/${2}/test/${2}_tests.dyalog'" >> ${SETUPFILE}
+}
+
+create_src_and_test_files()
+{
+    SRC=${1}/${2}/src/${2}.dyalog
+    echo ":NameSpace ${2}" > ${SRC}
+    echo "" >> ${SRC}
+    echo ":EndNameSpace" >> ${SRC}
+
+    TEST=${1}/${2}/test/${2}_tests.dyalog
+    echo ":NameSpace ${2}_tests" > ${TEST}
+    echo "" >> ${TEST}
+    echo ":EndNameSpace" >> ${TEST}
 }
 
 print_usage()
