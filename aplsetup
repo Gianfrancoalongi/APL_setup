@@ -2,13 +2,30 @@
 
 main()
 {
+    check_amount_of_arguments_and_aplunit_path_variable $@
+}
+
+check_amount_of_arguments_and_aplunit_path_variable()
+{
     if [[ $# != 2 ]]
     then
 	print_usage
 	exit 1
+    else
+	if [[ ${APLUNIT_PATH} == "" ]]
+	then
+	    aplunit_path_missing
+	    print_usage
+	    exit 2
+	fi
     fi
 }
 
+aplunit_path_missing()
+{
+    echo "error: APLUNIT_PATH variable not set"
+    echo ""
+}
 
 print_usage()
 {
