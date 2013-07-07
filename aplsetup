@@ -6,8 +6,8 @@ main()
     ensure_apl_root_variable_set
     ensure_aplunit_path_variable_set
     ensure_path_exists_and_is_writeable ${1}
-    create_directory_structure ${1} ${2}
-    create_files ${1} ${2}
+    create_directory_structure $@
+    create_files $@
 }
 
 check_amount_of_arguments()
