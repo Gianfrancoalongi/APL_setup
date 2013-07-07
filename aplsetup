@@ -3,6 +3,7 @@
 main()
 {
     check_amount_of_arguments $@
+    ensure_apl_root_variable_set
     ensure_aplunit_path_variable_set
     ensure_path_exists_and_is_writeable ${1}
     create_directory_structure ${1} ${2}
@@ -16,6 +17,15 @@ check_amount_of_arguments()
 	print_usage
 	exit 1
     fi
+}
+
+ensure_apl_root_variable_set() 
+{
+    if [[ ${APL_ROOT} == "" ]]
+    then
+	echo "error: APL_ROOT variable not set"
+	exit 3
+    fi    
 }
 
 ensure_aplunit_path_variable_set()
@@ -79,10 +89,11 @@ print_usage()
     echo " ${PATH}${NAME}/setup/test_setup.dyalog"
     echo " ${PATH}${NAME}/test/${NAME}_tests.dyalog"
     echo ""
-    echo "dependencies:"
-    echo " Assumes that you have a copy of APLUnit somewhere on your system"
-    echo " with the environment variable APLUNIT_PATH set to the root folder"
-    echo " of your local copy."
+    echo "environment variables:"
+    echo " APLUNIT_PATH - assumes that you have a copy of APLUnit somewhere on your system"
+    echo " with the environment variable APLUNIT_PATH set to the root folder of APLUnit."
+    echo ""
+    echo " APL_ROOT - assumes that APL_ROOT points at the root APL directory of mapl"
 }
 
 main $@
