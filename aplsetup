@@ -6,6 +6,7 @@ main()
     ensure_aplunit_path_variable_set
     ensure_path_exists_and_is_writeable ${1}
     create_directory_structure ${1} ${2}
+    create_files ${1} ${2}
 }
 
 check_amount_of_arguments()
@@ -39,6 +40,17 @@ create_directory_structure()
 {
     mkdir ${1}/${2} &> /dev/null
     mkdir ${1}/${2}/{src,setup,test} &> /dev/null
+}
+
+create_files()
+{
+    create_makefile $@
+}
+
+create_makefile()
+{
+    echo '.PHONY: test' > ${1}/${2}/Makefile
+    echo 'test:' >> ${1}/${2}/Makefile
 }
 
 print_usage()
