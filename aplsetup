@@ -3,28 +3,36 @@
 main()
 {
     check_amount_of_arguments_and_aplunit_path_variable $@
+    ensure_path_exists_and_is_writeable ${1}
 }
 
 check_amount_of_arguments_and_aplunit_path_variable()
 {
     if [[ $# != 2 ]]
-    then
+    then	
 	print_usage
 	exit 1
     else
-	if [[ ${APLUNIT_PATH} == "" ]]
-	then
-	    aplunit_path_missing
-	    print_usage
-	    exit 2
-	fi
+	ensure_aplunit_path_is_set
     fi
 }
 
-aplunit_path_missing()
+ensure_path_exists_and_is_writeable()
 {
-    echo "error: APLUNIT_PATH variable not set"
-    echo ""
+    if [[ ! -w ${1} ]]
+    then
+	echo "error: PATH not writeable"
+	exit 3
+    fi
+}
+
+ensure_aplunit_path_is_set()
+{
+    if [[ ${APLUNIT_PATH} == "" ]]
+    then
+	echo "error: APLUNIT_PATH variable not set"
+	exit 2
+    fi    
 }
 
 print_usage()
