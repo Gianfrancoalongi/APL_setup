@@ -59,8 +59,10 @@ create_files()
 
 create_makefile()
 {
-    echo '.PHONY: test' > ${1}/${2}/Makefile
-    echo 'test:' >> ${1}/${2}/Makefile
+    MAKEFILE=${1}/${2}/Makefile
+    echo '.PHONY: test' > ${MAKEFILE}
+    echo 'test:' >> ${MAKEFILE}
+    echo -e "\t${APL_ROOT}/mapl ${1}/${2}/setup/test_setup.dyapp" >> ${MAKEFILE}
 }
 
 print_usage()
