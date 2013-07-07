@@ -1,5 +1,14 @@
 #!/bin/bash
 
+main()
+{
+    if [[ $# != 2 ]]
+    then
+	print_usage
+	exit 1
+    fi
+}
+
 
 print_usage()
 {
@@ -33,10 +42,4 @@ print_usage()
     echo " of your local copy."
 }
 
-if [[ $# != 2 ]]
-then
-    print_usage
-    exit 1
-fi
-
-
+main $@
