@@ -48,8 +48,7 @@ ensure_path_exists_and_is_writeable()
 
 create_directory_structure()
 {
-    mkdir ${1}/${2} &> /dev/null
-    mkdir ${1}/${2}/{src,setup,test} &> /dev/null
+    mkdir ${1}/{src,setup,test} &> /dev/null
 }
 
 create_files()
@@ -61,28 +60,28 @@ create_files()
 
 create_makefile()
 {
-    MAKEFILE=${1}/${2}/Makefile
+    MAKEFILE=${1}/Makefile
     echo '.PHONY: test' > ${MAKEFILE}
     echo 'test:' >> ${MAKEFILE}
-    echo -e "\t${APL_ROOT}/mapl ${1}/${2}/setup/test_setup.dyapp" >> ${MAKEFILE}
+    echo -e "\t${APL_ROOT}/mapl ${1}/setup/test_setup.dyapp" >> ${MAKEFILE}
 }
 
 create_setup_file()
 {
-    SETUPFILE=${1}/${2}/setup/test_setup.dyapp
+    SETUPFILE=${1}/setup/test_setup.dyapp
     echo "Load ${APLUNIT_PATH}/UT.dyalog" > ${SETUPFILE}
-    echo "Load ${1}/${2}/src/${2}.dyalog" >> ${SETUPFILE}
-    echo "Run UT.run '${1}/${2}/test/${2}_tests.dyalog'" >> ${SETUPFILE}
+    echo "Load ${1}/src/${2}.dyalog" >> ${SETUPFILE}
+    echo "Run UT.run '${1}/test/${2}_tests.dyalog'" >> ${SETUPFILE}
 }
 
 create_src_and_test_files()
 {
-    SRC=${1}/${2}/src/${2}.dyalog
+    SRC=${1}/src/${2}.dyalog
     echo ":NameSpace ${2}" > ${SRC}
     echo "" >> ${SRC}
     echo ":EndNameSpace" >> ${SRC}
 
-    TEST=${1}/${2}/test/${2}_tests.dyalog
+    TEST=${1}/test/${2}_tests.dyalog
     echo ":NameSpace ${2}_tests" > ${TEST}
     echo "" >> ${TEST}
     echo ":EndNameSpace" >> ${TEST}
@@ -95,7 +94,7 @@ print_usage()
     echo " PATH is the path to where the APL project is to be created"
     echo " NAME is the APL project name"
     echo ""
-    echo "this will create a catalog named NAME under PATH that contains"
+    echo "this will create a starter pack under PATH that contains"
     echo " Makefile - with a phony target 'test' that executes unit tests"
     echo " setup/test_setup.dyapp - a set up file invoked by the 'test' target"
     echo " src/NAME.dyapp - a SALT script with an empty namespace NAME"
@@ -108,11 +107,13 @@ print_usage()
     NAME='tdd_kata_roman'
     echo "example: $0 ${PATH} ${NAME}"
     echo "will create"
-    echo " ${PATH}${NAME}/"
-    echo " ${PATH}${NAME}/Makefile"
-    echo " ${PATH}${NAME}/src/${NAME}.dyalog"
-    echo " ${PATH}${NAME}/setup/test_setup.dyalog"
-    echo " ${PATH}${NAME}/test/${NAME}_tests.dyalog"
+    echo " ${PATH}/Makefile"
+    echo " ${PATH}/src/"
+    echo " ${PATH}/src/${NAME}.dyalog"
+    echo " ${PATH}/setup/"
+    echo " ${PATH}/setup/test_setup.dyalog"
+    echo " ${PATH}/test/"
+    echo " ${PATH}/test/${NAME}_tests.dyalog"
     echo ""
     echo "environment variables:"
     echo " APLUNIT_PATH"
