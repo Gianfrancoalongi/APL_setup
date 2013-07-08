@@ -63,7 +63,7 @@ create_makefile()
     MAKEFILE=${1}/Makefile
     echo '.PHONY: test' > ${MAKEFILE}
     echo 'test:' >> ${MAKEFILE}
-    echo -e "\t${APL_ROOT}/mapl ${1}/setup/test_setup.dyapp" >> ${MAKEFILE}
+    echo -e "\t${APL_ROOT}/mapl ${1}/setup/test_setup.dyapp salt" >> ${MAKEFILE}
 }
 
 create_setup_file()
